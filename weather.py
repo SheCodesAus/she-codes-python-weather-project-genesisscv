@@ -35,7 +35,6 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
-    pass
 
 
 def calculate_mean(weather_data):
@@ -46,7 +45,13 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
-    pass
+    mean = (float(sum(weather_data))/len(weather_data))
+    return print(float(mean))
+
+# use this later for flexible data
+# list = []
+# for row in weather_data:
+#     list.append(row)
 
 
 def load_data_from_csv(csv_file):
