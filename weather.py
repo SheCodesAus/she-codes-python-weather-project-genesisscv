@@ -1,7 +1,8 @@
 import csv
 from datetime import datetime
+import dateutil
 
-DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
+DEGREE_SYMBOL = u"\N{DEGREE SIGN}C"
 
 
 def format_temperature(temp):
@@ -13,7 +14,7 @@ def format_temperature(temp):
     Returns:
         A string contain the temperature and "degrees celcius."
     """
-    return f"{temp}{DEGREE_SYBMOL}"
+    return f"{temp}{DEGREE_SYMBOL}"
 
 
 def convert_date(iso_string):
@@ -35,6 +36,9 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
+    tf_float = float(temp_in_farenheit)
+    calculator = (tf_float - 32) * 5/9
+    return round(calculator, 1)
 
 
 def calculate_mean(weather_data):
@@ -45,13 +49,9 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
-    mean = (float(sum(weather_data))/len(weather_data))
-    return print(float(mean))
-
-# use this later for flexible data
-# list = []
-# for row in weather_data:
-#     list.append(row)
+    wd_float = [float(x) for x in weather_data]
+    mean = (sum(wd_float))/len(weather_data)
+    return(float(mean))
 
 
 def load_data_from_csv(csv_file):
@@ -65,7 +65,7 @@ def load_data_from_csv(csv_file):
     pass
 
 
-def find_min(weather_data):
+def find_min(a_list):
     """Calculates the minimum value in a list of numbers.
 
     Args:
@@ -73,10 +73,18 @@ def find_min(weather_data):
     Returns:
         The minium value and it's position in the list.
     """
-    pass
+
+    if a_list == []:
+        return()
+    else:
+        mv_float = [float(x) for x in a_list]
+        min_value = min(mv_float)
+        for i in reversed(range(len(mv_float))):
+            if mv_float[i] == min_value:
+                return(min_value, i)
 
 
-def find_max(weather_data):
+def find_max(a_list):
     """Calculates the maximum value in a list of numbers.
 
     Args:
@@ -84,7 +92,14 @@ def find_max(weather_data):
     Returns:
         The maximum value and it's position in the list.
     """
-    pass
+    if a_list == []:
+        return()
+    else:
+        mv_float = [float(x) for x in a_list]
+        max_value = max(mv_float)
+        for i in reversed(range(len(mv_float))):
+            if mv_float[i] == max_value:
+                return(max_value, i)
 
 
 def generate_summary(weather_data):
