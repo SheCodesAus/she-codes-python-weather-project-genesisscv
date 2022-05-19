@@ -1,6 +1,6 @@
 import csv
 from datetime import datetime
-import dateutil
+from time import strftime
 
 DEGREE_SYMBOL = u"\N{DEGREE SIGN}C"
 
@@ -25,7 +25,15 @@ def convert_date(iso_string):
     Returns:
         A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
     """
-    pass
+    # strptime what type do they expect as an argument what type do they return
+    # strftime
+
+    iso_string_nt = iso_string[:-15]
+
+    iso_object1 = datetime.strptime(iso_string_nt, "%Y-%m-%d")
+
+    format = iso_object1.strftime("%A %d %B %Y")
+    return(format)
 
 
 def convert_f_to_c(temp_in_farenheit):
@@ -54,7 +62,7 @@ def calculate_mean(weather_data):
     return(float(mean))
 
 
-def load_data_from_csv(csv_file):
+def load_data_from_csv(csv_f):
     """Reads a csv file and stores the data in a list.
 
     Args:
@@ -62,7 +70,35 @@ def load_data_from_csv(csv_file):
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
     """
-    pass
+    list_of_lists = []
+
+    with open(csv_f) as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            list_of_lists.append(row)
+
+        list_of_lists.pop(0)
+        for i in list_of_lists:
+            for j in i:
+                i[1] = int(i[1])
+                i[2] = int(i[2])
+    return list_of_lists
+
+
+list_of_lists = []
+
+with open("tests/data/example_two.csv") as csv_file:
+    reader = csv.reader(csv_file)
+    for row in reader:
+        list_of_lists.append(row)
+
+    list_of_lists.pop(0)
+    for i in list_of_lists:
+        for j in i:
+            i[1] = int(i[1])
+            i[2] = int(i[2])
+
+    print(list_of_lists)
 
 
 def find_min(a_list):
@@ -111,6 +147,9 @@ def generate_summary(weather_data):
         A string containing the summary information.
     """
     pass
+
+
+# print(generate_summary())
 
 
 def generate_daily_summary(weather_data):
