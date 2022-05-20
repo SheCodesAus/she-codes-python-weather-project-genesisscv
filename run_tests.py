@@ -14,8 +14,8 @@ print("Running Tests...\n")
 # runner.run(unittest.TestSuite((unittest.makeSuite(ConvertDateTests))))###OK
 # runner.run(unittest.TestSuite((unittest.makeSuite(ConvertTempTests))))###OK
 # runner.run(unittest.TestSuite((unittest.makeSuite(CalculateMeanTests))))###OK
-runner.run(unittest.TestSuite((unittest.makeSuite(LoadCSVTests))))
+# runner.run(unittest.TestSuite((unittest.makeSuite(LoadCSVTests))))###OK
 # runner.run(unittest.TestSuite((unittest.makeSuite(FindMinTests))))###OK
 # runner.run(unittest.TestSuite((unittest.makeSuite(FindMaxTests))))###OK
-# runner.run(unittest.TestSuite((unittest.makeSuite(GenerateSummaryTests))))
+runner.run(unittest.TestSuite((unittest.makeSuite(GenerateSummaryTests))))
 # runner.run(unittest.TestSuite((unittest.makeSuite(GenerateDailySummaryTests))))

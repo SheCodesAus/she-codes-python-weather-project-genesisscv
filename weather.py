@@ -82,23 +82,11 @@ def load_data_from_csv(csv_f):
             for j in i:
                 i[1] = int(i[1])
                 i[2] = int(i[2])
-    return list_of_lists
 
+        # using this to get rid of empty rows that are creating empty lists
+        final_list = ([x for x in list_of_lists if x])
 
-list_of_lists = []
-
-with open("tests/data/example_two.csv") as csv_file:
-    reader = csv.reader(csv_file)
-    for row in reader:
-        list_of_lists.append(row)
-
-    list_of_lists.pop(0)
-    for i in list_of_lists:
-        for j in i:
-            i[1] = int(i[1])
-            i[2] = int(i[2])
-
-    print(list_of_lists)
+    return final_list
 
 
 def find_min(a_list):
@@ -149,7 +137,31 @@ def generate_summary(weather_data):
     pass
 
 
-# print(generate_summary())
+weather_data = load_data_from_csv("tests\data\example_one.csv")
+
+
+# changing dates to human readable ones
+dates = []
+for x in weather_data:
+    dates.append(convert_date(x[0]))
+weather_data[0] = dates
+print(weather_data)
+
+# # temperature convertions min temps during the days
+# min_temps = []
+# for x in weather_data:
+#     min_temps.append(convert_f_to_c(x[1]))
+
+# # temperature convertions max temps during the days
+# max_temps = []
+# for x in weather_data:
+#     max_temps.append(convert_f_to_c(x[2]))
+
+
+# new_list = dates + min_temps + max_temps
+
+# # kinda lost on what to do here
+# print(new_list)
 
 
 def generate_daily_summary(weather_data):
