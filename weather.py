@@ -144,24 +144,37 @@ weather_data = load_data_from_csv("tests\data\example_one.csv")
 dates = []
 for x in weather_data:
     dates.append(convert_date(x[0]))
-weather_data[0] = dates
-print(weather_data)
 
-# # temperature convertions min temps during the days
-# min_temps = []
-# for x in weather_data:
-#     min_temps.append(convert_f_to_c(x[1]))
+# temperature convertions min temps during the days
+min_temps = []
+for x in weather_data:
+    min_temps.append(convert_f_to_c(x[1]))
 
-# # temperature convertions max temps during the days
-# max_temps = []
-# for x in weather_data:
-#     max_temps.append(convert_f_to_c(x[2]))
+# temperature convertions max temps during the days
+max_temps = []
+for x in weather_data:
+    max_temps.append(convert_f_to_c(x[2]))
 
 
-# new_list = dates + min_temps + max_temps
+# finding min and max temps
 
-# # kinda lost on what to do here
-# print(new_list)
+min_and_max_temps = min_temps + max_temps
+
+min = find_min(min_and_max_temps)
+# print(min)
+
+max = find_max(min_and_max_temps)
+# print(max)
+
+max_mean = calculate_mean(max_temps)
+print(max_mean)
+
+min_mean = calculate_mean(min_temps)
+print(min_mean)
+
+
+print(
+    f"5 day Overview \n The lowest temperature will be{min[0]},and will occur on {dates,{min[1]}}. \n ")
 
 
 def generate_daily_summary(weather_data):
