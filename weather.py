@@ -134,47 +134,55 @@ def generate_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
+    final_list = []
+    dates = []
+    min_temps = []
+    max_temps = []
+    days = 0
 
+    for row in weather_data:
+        final_list.append(row)
 
-weather_data = load_data_from_csv("tests\data\example_one.csv")
+    for num in final_list:
+        dates.append(num[0])
+        min_temps.append(num[1])
+        max_temps.append(num[2])
 
+        if row[1] > days:
+            days += 1
 
-# changing dates to human readable ones
-dates = []
-for x in weather_data:
-    dates.append(convert_date(x[0]))
+    # Calculating min and max and finding their indexes
 
-# temperature convertions min temps during the days
-min_temps = []
-for x in weather_data:
-    min_temps.append(convert_f_to_c(x[1]))
+    min_temp_w_index = find_min(min_temps)
+    min_index = min_temp_w_index[1]
+    min_temp = min_temp_w_index[0]
 
-# temperature convertions max temps during the days
-max_temps = []
-for x in weather_data:
-    max_temps.append(convert_f_to_c(x[2]))
+    max_temp_w_index = find_max(max_temps)
+    max_index = max_temp_w_index[1]
+    max_temp = max_temp_w_index[0]
 
+    # Min and max to celcius
 
-# finding min and max temps
+    min_c = convert_f_to_c(min_temp)
+    max_c = convert_f_to_c(max_temp)
 
-min_and_max_temps = min_temps + max_temps
+    # Calculating min and max average then converting to celcius
 
-min = find_min(min_and_max_temps)
-# print(min)
+    mean_min_f = calculate_mean(min_temps)
+    mean_min_c = convert_f_to_c(mean_min_f)
 
-max = find_max(min_and_max_temps)
-# print(max)
+    mean_max_f = calculate_mean(max_temps)
+    mean_max_c = convert_f_to_c(mean_max_f)
 
-max_mean = calculate_mean(max_temps)
-print(max_mean)
+    # Finding dates based on index
 
-min_mean = calculate_mean(min_temps)
-print(min_mean)
+    min_iso_date = dates[min_index]
+    min_normal_date = convert_date(min_iso_date)
 
+    max_iso_date = dates[max_index]
+    max_normal_date = convert_date(max_iso_date)
 
-print(
-    f"5 day Overview \n The lowest temperature will be{min[0]},and will occur on {dates,{min[1]}}. \n ")
+    return(f"{days} Day Overview\n  The lowest temperature will be {min_c}{DEGREE_SYMBOL}, and will occur on {min_normal_date}.\n  The highest temperature will be {max_c}{DEGREE_SYMBOL}, and will occur on {max_normal_date}.\n  The average low this week is {mean_min_c}{DEGREE_SYMBOL}.\n  The average high this week is {mean_max_c}{DEGREE_SYMBOL}.")
 
 
 def generate_daily_summary(weather_data):
@@ -185,4 +193,27 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
+
+    final_list = []
+    dates = []
+    min_temps = []
+    max_temps = []
+
+    for row in weather_data:
+        final_list.append(row)
+
+    for num in final_list:
+        dates.append(num[0])
+        min_temps.append(num[1])
+        max_temps.append(num[2])
+
+    result = ""
+    for x in final_list:
+        min_temps = (format_temperature(convert_f_to_c(x[1])))
+        max_temps = (format_temperature(convert_f_to_c(x[2])))
+        normal_dates = (convert_date(x[0]))
+        result += f"---- {normal_dates} ----\n"
+        result += f"  Minimum Temperature: {min_temps}\n"
+        result += f"  Maximum Temperature: {max_temps}\n\n"
+
+    return result
